@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:recepie_app/widgets/recepie_details.dart';
 
 class RecipeCard extends StatelessWidget {
   final String imageUrl;
+  final int id;
   final String title;
   final String duration;
   final String calories;
-  final String favoriteCount;
 
   const RecipeCard({
     super.key,
+    required this.id,
     required this.imageUrl,
     required this.title,
     required this.duration,
     required this.calories,
-    required this.favoriteCount,
   });
 
   @override
@@ -40,21 +41,17 @@ class RecipeCard extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Positioned(
+              const Positioned(
                 top: 8,
                 right: 8,
                 child: Row(
                   children: [
                     Icon(
                       Icons.favorite_border,
-                      color: Colors.white,
+                      color: Colors.red,
                       size: 20,
                     ),
-                    const SizedBox(width: 4),
-                    Text(
-                      favoriteCount,
-                      style: const TextStyle(color: Colors.white),
-                    ),
+                    SizedBox(width: 4),
                   ],
                 ),
               ),
@@ -65,23 +62,38 @@ class RecipeCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RecipeDetailScreen(
+                                  id: id,
+                                )));
+                  },
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  duration,
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
-                Text(
-                  calories,
-                  style: TextStyle(color: Colors.grey[600]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      duration,
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                    Text(
+                      calories,
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                  ],
                 ),
               ],
             ),

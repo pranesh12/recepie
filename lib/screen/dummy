@@ -1,0 +1,11 @@
+
+const TextField(
+          decoration: InputDecoration(
+            hintText: 'Search recipes...',
+            prefixIcon: Icon(Icons.search),
+            border: InputBorder.none,
+            filled: true,
+            fillColor: Colors.grey,
+            contentPadding: EdgeInsets.all(8),
+          ),
+        ),

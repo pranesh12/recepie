@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:recepie_app/Model/recipie.dart';
 import 'package:recepie_app/widgets/recipe_card.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,24 +12,53 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  List<Recipe> recipes = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    if (recipes.isEmpty) {
+      fetchRecipe();
+    }
+  }
+
+  Future<void> fetchRecipe() async {
+    if (recipes.isNotEmpty) return;
+    try {
+      final response =
+          await http.get(Uri.parse("https://dummyjson.com/recipes"));
+
+      if (response.statusCode == 200) {
+        setState(() {
+          recipes = (jsonDecode(response.body)['recipes'] as List)
+              .map((recipeData) => Recipe.fromJson(recipeData))
+              .toList();
+          isLoading = false;
+        });
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
-        title: const TextField(
-          decoration: InputDecoration(
-            hintText: 'Search recipes...',
-            prefixIcon: Icon(Icons.search),
-            border: InputBorder.none,
-            filled: true,
-            fillColor: Colors.grey,
-            contentPadding: EdgeInsets.all(8),
-          ),
-        ),
+        backgroundColor: Colors.green,
+        title: const Text("Welcome to FooodRecepie"),
       ),
-      body: Column(
+      body:
+          // Loading indicator
+          Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Filter Chips
@@ -59,17 +91,18 @@ class HomeState extends State<Home> {
                 crossAxisCount: 2,
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
-                childAspectRatio: 0.75,
+                childAspectRatio: 0.90,
               ),
-              itemCount: 6, // Replace with your dynamic item count
+              itemCount: recipes.length,
               itemBuilder: (context, index) {
+                Recipe recipe = recipes[index];
                 return RecipeCard(
-                  imageUrl:
-                      'https://via.placeholder.com/150', // Placeholder image URL
-                  title: 'Recipe Title $index',
-                  duration: '40 min',
-                  calories: '${200 + (index * 50)} Cal',
-                  favoriteCount: '${5 + index}',
+                  id: recipe.id,
+                  imageUrl: recipe.image,
+                  title: recipe.name,
+                  duration:
+                      '${recipe.prepTimeMinutes + recipe.cookTimeMinutes} min',
+                  calories: '${recipe.caloriesPerServing} Cal',
                 );
               },
             ),
