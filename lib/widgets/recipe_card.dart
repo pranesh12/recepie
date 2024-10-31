@@ -48,7 +48,7 @@ class RecipeCard extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.favorite_border,
-                      color: Colors.red,
+                      color: Colors.yellow,
                       size: 20,
                     ),
                     SizedBox(width: 4),
