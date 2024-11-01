@@ -42,7 +42,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
-            icon: const Icon(Icons.arrow_back)),
+            icon: const Icon(Icons.arrow_back_ios)),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.abc))],
       ),
       body: recipeDetails == null

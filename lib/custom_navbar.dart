@@ -31,7 +31,7 @@ class CustomNavbarState extends State<CustomNavbar> {
       bottomNavigationBar: BottomNavigationBar(
           onTap: _onTaped,
           currentIndex: selectedIdx,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: const Color(0xFF00CC99),
           elevation: 10,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:recepie_app/Model/recipie.dart';
+import 'package:recepie_app/constant/api_endpoint.dart';
 import 'package:recepie_app/widgets/recipe_card.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,8 +27,7 @@ class HomeState extends State<Home> {
   Future<void> fetchRecipe() async {
     if (recipes.isNotEmpty) return;
     try {
-      final response =
-          await http.get(Uri.parse("https://dummyjson.com/recipes"));
+      final response = await http.get(Uri.parse(ApiEndpoint.baseUrl));
 
       if (response.statusCode == 200) {
         setState(() {
@@ -53,8 +53,11 @@ class HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.green,
-        title: const Text("Welcome to FooodRecepie"),
+        backgroundColor: const Color(0xFF00CC99),
+        title: const Text(
+          "Welcome to Foodie",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body:
           // Loading indicator

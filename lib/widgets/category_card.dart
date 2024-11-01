@@ -23,7 +23,7 @@ class CategoryCardState extends State<CategoryCard> {
           child: Text(
             widget.tagName,
             style: const TextStyle(
-                fontWeight: FontWeight.w500, fontSize: 16, color: Colors.white),
+                fontWeight: FontWeight.w500, fontSize: 18, color: Colors.white),
           ),
         ),
       ),

@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:recepie_app/constant/api_endpoint.dart';
+import 'package:recepie_app/screen/tag_recipe.dart';
 import 'package:recepie_app/widgets/category_card.dart';
+import 'package:http/http.dart' as http;
 
 class Category extends StatefulWidget {
   const Category({super.key});
@@ -9,7 +14,31 @@ class Category extends StatefulWidget {
 }
 
 class CategoryState extends State<Category> {
-  Future<void> fetchTags() async {}
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      fetchTags();
+    });
+  }
+
+  List<dynamic> tags = [];
+  Future<void> fetchTags() async {
+    try {
+      final res = await http.get(Uri.parse("${ApiEndpoint.baseUrl}/tags"));
+
+      if (res.statusCode == 200) {
+        setState(() {
+          tags = (jsonDecode(res.body));
+        });
+      } else {
+        print("something went wrong");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,12 +55,24 @@ class CategoryState extends State<Category> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 8.0,
                       mainAxisSpacing: 8.0,
-                      childAspectRatio: 3,
+                      childAspectRatio: 2,
                     ),
-                    itemCount: 6,
+                    itemCount: tags.length,
                     itemBuilder: (context, index) {
-                      return CategoryCard(
-                        tagName: "Spanish",
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TagRecipe(
+                                tagName: tags[index].toString(),
+                              ), // Replace YourWidget with the widget you want to navigate to
+                            ),
+                          );
+                        },
+                        child: CategoryCard(
+                          tagName: tags[index],
+                        ),
                       );
                     }))
           ],
