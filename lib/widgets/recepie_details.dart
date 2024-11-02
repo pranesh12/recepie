@@ -1,17 +1,19 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
+import 'package:recepie_app/provider/favourites_provider.dart';
 import 'package:recepie_app/widgets/ingredient_Item.dart';
 
-class RecipeDetailScreen extends StatefulWidget {
+class RecipeDetailScreen extends ConsumerStatefulWidget {
   final int id;
   const RecipeDetailScreen({super.key, required this.id});
 
   @override
-  State<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
+  ConsumerState<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
 }
 
-class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
+class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
   Map<String, dynamic>? recipeDetails;
 
   @override
@@ -29,7 +31,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
           recipeDetails = jsonDecode(res.body);
         });
       } else {
-        print("Something error happened");
+        print("Something went wrong");
       }
     } catch (e) {
       print(e);
@@ -41,10 +43,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
-            icon: const Icon(Icons.arrow_back_ios)),
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(Icons.arrow_back_ios),
+        ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.heart_broken))
+          IconButton(
+              onPressed: () {
+                //  ref.read(favoritesProvider.notifier).addFavorite(recipeDetails);
+              },
+              icon: const Icon(Icons.favorite_border)),
         ],
       ),
       body: recipeDetails == null
@@ -59,14 +66,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   Stack(
                     children: [
                       Image.network(
-                        recipeDetails?['image'],
+                        recipeDetails?['image'] ?? '',
                         height: 300,
                         width: double.infinity,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.broken_image, size: 100),
                       ),
                     ],
                   ),
-
                   // Recipe Title, Time, and Like Button
                   Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -74,7 +82,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          recipeDetails?['name'],
+                          recipeDetails?['name'] ?? 'No name available',
                           style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -84,7 +92,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                         Row(
                           children: [
                             Text(
-                              '${(recipeDetails?['prepTimeMinutes'] ?? 0) + (recipeDetails?['cookTimeMinutes'] ?? 0)} minites',
+                              '${(recipeDetails?['prepTimeMinutes'] ?? 0) + (recipeDetails?['cookTimeMinutes'] ?? 0)} minutes',
                               style: TextStyle(
                                 color: Colors.grey[600],
                               ),
@@ -97,14 +105,14 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  recipeDetails?['cuisine'],
+                                  recipeDetails?['cuisine'] ?? 'Unknown',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
-                                  recipeDetails?['difficulty'],
+                                  recipeDetails?['difficulty'] ?? 'Easy',
                                   style: const TextStyle(
                                     color: Colors.green,
                                     fontWeight: FontWeight.bold,
@@ -115,7 +123,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           ],
                         ),
                         Divider(height: 30, color: Colors.grey[300]),
-
                         // Description Section
                         const Text(
                           'Description',
@@ -125,21 +132,13 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           ),
                         ),
                         const SizedBox(height: 8),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment
-                              .start, // Align text to the start
-                          children: [
-                            Text(
-                              recipeDetails?['instructions'].join(
-                                  ' '), // Join instructions with a space or use '\n' for new lines
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
+                        Text(
+                          (recipeDetails?['instructions'] as List<dynamic>?)
+                                  ?.join('\n') ??
+                              'No instructions available',
+                          style: const TextStyle(color: Colors.grey),
                         ),
-
                         Divider(height: 30, color: Colors.grey[300]),
-
                         // Ingredients Section
                         const Text(
                           'Ingredients',
@@ -149,10 +148,10 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        ...?recipeDetails?[
-                                'ingredients'] // Using spread operator to include items
-                            .map<Widget>((i) => IngredientItem(
-                                text: i.toString())) // Use parentheses
+                        ...?recipeDetails?['ingredients']
+                            ?.map<Widget>((i) => IngredientItem(
+                                  text: i.toString(),
+                                ))
                             .toList(),
                       ],
                     ),
