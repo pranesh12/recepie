@@ -43,7 +43,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         leading: IconButton(
             onPressed: () => Navigator.of(context).pop(),
             icon: const Icon(Icons.arrow_back_ios)),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.abc))],
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.heart_broken))
+        ],
       ),
       body: recipeDetails == null
           ? const Center(

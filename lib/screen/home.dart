@@ -1,39 +1,39 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:recepie_app/Model/recipie.dart';
 import 'package:recepie_app/constant/api_endpoint.dart';
+import 'package:recepie_app/provider/recipe_provider.dart';
 import 'package:recepie_app/widgets/recipe_card.dart';
 import 'package:http/http.dart' as http;
 
-class Home extends StatefulWidget {
+class Home extends ConsumerStatefulWidget {
   const Home({super.key});
 
   @override
   HomeState createState() => HomeState();
 }
 
-class HomeState extends State<Home> {
-  List<Recipe> recipes = [];
+class HomeState extends ConsumerState<Home> {
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    if (recipes.isEmpty) {
-      fetchRecipe();
-    }
+
+    fetchRecipe();
   }
 
   Future<void> fetchRecipe() async {
-    if (recipes.isNotEmpty) return;
     try {
       final response = await http.get(Uri.parse(ApiEndpoint.baseUrl));
 
       if (response.statusCode == 200) {
         setState(() {
-          recipes = (jsonDecode(response.body)['recipes'] as List)
+          List<Recipe> recipes = (jsonDecode(response.body)['recipes'] as List)
               .map((recipeData) => Recipe.fromJson(recipeData))
               .toList();
+          ref.read(recipeProvider.notifier).setRecipie(recipes);
           isLoading = false;
         });
       } else {
@@ -50,6 +50,7 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final recipes = ref.watch(recipeProvider);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

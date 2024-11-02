@@ -11,9 +11,6 @@ class FavouriteState extends State<Favourite> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Favourite"),
-      ),
       body: Center(
         child: Text("Favourite"),
       ),

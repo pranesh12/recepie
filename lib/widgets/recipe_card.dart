@@ -41,20 +41,6 @@ class RecipeCard extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              const Positioned(
-                top: 8,
-                right: 8,
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.favorite_border,
-                      color: Colors.yellow,
-                      size: 20,
-                    ),
-                    SizedBox(width: 4),
-                  ],
-                ),
-              ),
             ],
           ),
           Padding(
