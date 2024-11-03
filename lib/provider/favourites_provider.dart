@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:recepie_app/Model/recipie.dart';
+import 'package:recepie_app/Model/recipe.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 

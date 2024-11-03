@@ -1,22 +1,16 @@
-import 'package:recepie_app/Model/recipie.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RecipeNotifier extends StateNotifier<List<Recipe>> {
-  RecipeNotifier() : super([]);
+// The TagNotifier manages a list of tags as strings
+class TagNotifier extends StateNotifier<List<dynamic>> {
+  TagNotifier() : super([]);
 
-  void setRecipie(List<Recipe> recipies) {
-    state = recipies;
-  }
-
-  List<Recipe> searchRecipe(String query) {
-    return state
-        .where(
-            (recipe) => recipe.name.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+  // Set the list of tags
+  void setTags(List<dynamic> tags) {
+    state = tags;
   }
 }
 
-final recipeProvider =
-    StateNotifierProvider<RecipeNotifier, List<Recipe>>((ref) {
-  return RecipeNotifier();
+// Create a StateNotifierProvider for the TagNotifier
+final tagProvider = StateNotifierProvider<TagNotifier, List<dynamic>>((ref) {
+  return TagNotifier();
 });

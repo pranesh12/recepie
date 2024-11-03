@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:recepie_app/constant/api_endpoint.dart';
-import 'package:recepie_app/Model/recipie.dart';
+import 'package:recepie_app/Model/recipe.dart';
+import 'package:recepie_app/widgets/recepie_details.dart';
 import 'package:recepie_app/widgets/recipe_card.dart';
 
 class TagRecipe extends StatefulWidget {
@@ -81,13 +82,22 @@ class TagRecipeState extends State<TagRecipe> {
               itemCount: recipes.length,
               itemBuilder: (context, index) {
                 Recipe recipe = recipes[index];
-                return RecipeCard(
-                  id: recipe.id,
-                  imageUrl: recipe.image,
-                  title: recipe.name,
-                  duration:
-                      '${recipe.prepTimeMinutes + recipe.cookTimeMinutes} min',
-                  calories: '${recipe.caloriesPerServing} Cal',
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                RecipeDetailScreen(id: recipe.id)));
+                  },
+                  child: RecipeCard(
+                    id: recipe.id,
+                    imageUrl: recipe.image,
+                    title: recipe.name,
+                    duration:
+                        '${recipe.prepTimeMinutes + recipe.cookTimeMinutes} min',
+                    calories: '${recipe.caloriesPerServing} Cal',
+                  ),
                 );
               },
             ),

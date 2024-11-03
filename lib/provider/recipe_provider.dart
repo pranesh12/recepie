@@ -1,17 +1,19 @@
-import 'package:recepie_app/Model/recipie.dart';
+import 'package:recepie_app/Model/recipe.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RecipeNotifier extends StateNotifier<List<Recipe>> {
   RecipeNotifier() : super([]);
 
-  void setRecipie(List<Recipe> recipies) {
-    state = recipies;
+  void setRecipe(List<Recipe> recipes) {
+    state = recipes;
   }
 
-  List<Recipe> searchRecipe(String query) {
+  // Method to search recipes by name
+  List<Recipe> searchRecipesByName(String name) {
     return state
         .where(
-            (recipe) => recipe.name.toLowerCase().contains(query.toLowerCase()))
+            (recipe) => recipe.name.toLowerCase().contains(name.toLowerCase()))
         .toList();
   }
 }

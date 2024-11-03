@@ -13,51 +13,94 @@ class FavouriteState extends ConsumerState<Favourite> {
   @override
   Widget build(BuildContext context) {
     final recipes = ref.watch(favoritesProvider);
+
     return Scaffold(
-      body: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            final recipe = recipes[index];
-            return Card(
-              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              elevation: 4,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    // Image on the left side
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        recipe.image,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    // Details (name, cooking time, and calories) on the right side
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            recipe.name,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 8),
-                          // Text("Cooking Time: ${recipe.}"),
-                          // SizedBox(height: 4),
-                          // Text("Calories: ${recipe.calories} kcal"),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+      appBar: AppBar(
+        title: const Text("Wishlist"),
+        toolbarHeight: 80,
+      ),
+      body: recipes.isEmpty
+          ? const Center(
+              child: Text(
+                "No Favourite Recepie",
+                style: TextStyle(fontSize: 18),
               ),
-            );
-          }),
+            )
+          : ListView.builder(
+              itemCount: recipes.length,
+              itemBuilder: (context, index) {
+                final recipe = recipes[index];
+                return Dismissible(
+                  key: Key(recipe.name),
+                  onDismissed: (DismissDirection direction) {
+                    setState(() {
+                      ref
+                          .read(favoritesProvider.notifier)
+                          .removeFavorite(recipe);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text("Recipe has been removed"),
+                        action: SnackBarAction(
+                            label: "Undo",
+                            onPressed: () {
+                              ref
+                                  .read(favoritesProvider.notifier)
+                                  .addFavorite(recipe);
+                            }),
+                      ));
+                    });
+                  },
+                  background: Container(
+                    color: Colors.red, // Background color when swiped
+                  ),
+                  child: Card(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 10),
+                    elevation: 4,
+                    child: SizedBox(
+                      height: 150,
+                      child: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Row(
+                          children: [
+                            // Image on the left side
+                            Flexible(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(1),
+                                child: Image.network(
+                                  recipe.image,
+                                  width: 150,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            // Details (name, cooking time, and calories) on the right side
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    recipe.name,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                      "Cooking Time: ${recipe.cookTimeMinutes + recipe.prepTimeMinutes} minutes"),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                      "Calories: ${recipe.caloriesPerServing} cal"),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
     );
   }
 }

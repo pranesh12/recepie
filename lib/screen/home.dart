@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:recepie_app/Model/recipie.dart';
+import 'package:recepie_app/Model/recipe.dart';
 import 'package:recepie_app/constant/api_endpoint.dart';
 import 'package:recepie_app/provider/recipe_provider.dart';
+import 'package:recepie_app/widgets/recepie_details.dart';
 import 'package:recepie_app/widgets/recipe_card.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,7 +21,6 @@ class HomeState extends ConsumerState<Home> {
   @override
   void initState() {
     super.initState();
-
     fetchRecipe();
   }
 
@@ -33,7 +33,7 @@ class HomeState extends ConsumerState<Home> {
           List<Recipe> recipes = (jsonDecode(response.body)['recipes'] as List)
               .map((recipeData) => Recipe.fromJson(recipeData))
               .toList();
-          ref.read(recipeProvider.notifier).setRecipie(recipes);
+          ref.read(recipeProvider.notifier).setRecipe(recipes);
           isLoading = false;
         });
       } else {
@@ -100,13 +100,23 @@ class HomeState extends ConsumerState<Home> {
               itemCount: recipes.length,
               itemBuilder: (context, index) {
                 Recipe recipe = recipes[index];
-                return RecipeCard(
-                  id: recipe.id,
-                  imageUrl: recipe.image,
-                  title: recipe.name,
-                  duration:
-                      '${recipe.prepTimeMinutes + recipe.cookTimeMinutes} min',
-                  calories: '${recipe.caloriesPerServing} Cal',
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RecipeDetailScreen(
+                                  id: index,
+                                )));
+                  },
+                  child: RecipeCard(
+                    id: recipe.id,
+                    imageUrl: recipe.image,
+                    title: recipe.name,
+                    duration:
+                        '${recipe.prepTimeMinutes + recipe.cookTimeMinutes} min',
+                    calories: '${recipe.caloriesPerServing} Cal',
+                  ),
                 );
               },
             ),
