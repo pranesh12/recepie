@@ -82,11 +82,19 @@ class HomeState extends ConsumerState<Home> {
               suffixIcon: Icon(Icons.search),
               border: InputBorder.none,
               filled: true,
-              fillColor: Color.fromARGB(255, 231, 230, 230),
+              fillColor: Colors.white,
               contentPadding:
                   EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             ),
           ),
+
+          // ListView.builder(
+          //     scrollDirection: Axis.horizontal,
+          //     itemBuilder: (context, index) {
+          //       Card(
+          //         child: Text("Whaever"),
+          //       );
+          //     }),
 
           // Grid View
           Expanded(
@@ -107,7 +115,7 @@ class HomeState extends ConsumerState<Home> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => RecipeDetailScreen(
-                                  id: index,
+                                  id: index + 1,
                                 )));
                   },
                   child: RecipeCard(

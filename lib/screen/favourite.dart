@@ -86,11 +86,37 @@ class FavouriteState extends ConsumerState<Favourite> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(height: 8),
-                                  Text(
-                                      "Cooking Time: ${recipe.cookTimeMinutes + recipe.prepTimeMinutes} minutes"),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.timelapse_outlined,
+                                        color: Colors.blue,
+                                      ),
+                                      const SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        "${recipe.cookTimeMinutes + recipe.prepTimeMinutes} minutes",
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
                                   const SizedBox(height: 4),
-                                  Text(
-                                      "Calories: ${recipe.caloriesPerServing} cal"),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.local_fire_department,
+                                        color: Colors.red,
+                                      ),
+                                      const SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        "${recipe.caloriesPerServing} cal",
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
