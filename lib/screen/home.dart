@@ -16,6 +16,7 @@ class Home extends ConsumerStatefulWidget {
 }
 
 class HomeState extends ConsumerState<Home> {
+  String searchItem = "";
   bool isLoading = true;
 
   @override
@@ -51,6 +52,10 @@ class HomeState extends ConsumerState<Home> {
   @override
   Widget build(BuildContext context) {
     final recipes = ref.watch(recipeProvider);
+    final filterRecipes = searchItem.isEmpty
+        ? recipes
+        : ref.read(recipeProvider.notifier).searchRecipesByName(searchItem);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -66,24 +71,20 @@ class HomeState extends ConsumerState<Home> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Filter Chips
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
-            child: Wrap(
-              spacing: 8.0,
-              children: [
-                Chip(
-                  label: Text('Cook Now'),
-                  backgroundColor: Colors.green.shade100,
-                ),
-                Chip(
-                  label: Text('Breakfast'),
-                  backgroundColor: Colors.green.shade100,
-                ),
-                Chip(
-                  label: Text('Low Price'),
-                  backgroundColor: Colors.green.shade100,
-                ),
-              ],
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                searchItem = value;
+              });
+            },
+            decoration: const InputDecoration(
+              hintText: 'Search recipes...',
+              suffixIcon: Icon(Icons.search),
+              border: InputBorder.none,
+              filled: true,
+              fillColor: Color.fromARGB(255, 231, 230, 230),
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             ),
           ),
 
@@ -97,9 +98,9 @@ class HomeState extends ConsumerState<Home> {
                 mainAxisSpacing: 8.0,
                 childAspectRatio: 0.90,
               ),
-              itemCount: recipes.length,
+              itemCount: filterRecipes.length,
               itemBuilder: (context, index) {
-                Recipe recipe = recipes[index];
+                Recipe recipe = filterRecipes[index];
                 return InkWell(
                   onTap: () {
                     Navigator.push(

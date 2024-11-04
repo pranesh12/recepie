@@ -11,10 +11,12 @@ class RecipeNotifier extends StateNotifier<List<Recipe>> {
 
   // Method to search recipes by name
   List<Recipe> searchRecipesByName(String name) {
-    return state
+    final results = state
         .where(
             (recipe) => recipe.name.toLowerCase().contains(name.toLowerCase()))
         .toList();
+
+    return results;
   }
 }
 

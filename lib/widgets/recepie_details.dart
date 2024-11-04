@@ -94,7 +94,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   ref.read(favoritesProvider.notifier).addFavorite(recipe);
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Row(
-                    children: [const Text("Added To Favourite Recipie")],
+                    children: [Text("Added To Favourite ")],
                   )));
                 }
               });
