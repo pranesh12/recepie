@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recepie_app/widgets/recepie_details.dart';
 
 class RecipeCard extends StatelessWidget {
   final String imageUrl;

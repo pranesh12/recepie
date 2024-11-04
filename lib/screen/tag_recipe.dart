@@ -43,13 +43,13 @@ class TagRecipeState extends State<TagRecipe> {
           isLoading = false;
         });
       } else {
-        print("something went wrong");
+        debugPrint("something went wrong");
         setState(() {
           isLoading = false;
         });
       }
     } catch (e) {
-      print(e);
+      debugPrint("Something went wrong");
       setState(() {
         isLoading = false;
       });

@@ -33,11 +33,11 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
         });
       } else {
         // Handle server errors
-        print("Error fetching recipe details: ${res.statusCode}");
+        debugPrint("Error fetching recipe details: ${res.statusCode}");
       }
     } catch (e) {
       // Handle network or parsing errors
-      print("An error occurred: $e");
+      debugPrint("An error occurred: $e");
     }
   }
 
@@ -183,8 +183,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
                   ),
                   const SizedBox(height: 8),
                   ...recipe.ingredients
-                      .map<Widget>((i) => IngredientItem(text: i))
-                      .toList(),
+                      .map<Widget>((i) => IngredientItem(text: i)),
                 ],
               ),
             ),

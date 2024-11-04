@@ -34,10 +34,10 @@ class CategoryState extends ConsumerState<Category> {
           ref.read(tagProvider.notifier).setTags(tags);
         });
       } else {
-        print("something went wrong");
+        debugPrint("something went wrong");
       }
     } catch (e) {
-      print(e);
+      debugPrint("An error occurred: $e");
     }
   }
 
