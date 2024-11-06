@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:recepie_app/Model/recipe.dart';
-import 'package:recepie_app/provider/favourites_provider.dart';
-import 'package:recepie_app/widgets/ingredient_Item.dart';
+import 'package:recipe_app/Model/recipe.dart';
+import 'package:recipe_app/provider/favourites_provider.dart';
+import 'package:recipe_app/widgets/ingredient_Item.dart';
 
 class RecipeDetailScreen extends ConsumerStatefulWidget {
   final int id;

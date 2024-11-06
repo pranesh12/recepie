@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:recepie_app/custom_navbar.dart';
+import 'package:recipe_app/custom_navbar.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

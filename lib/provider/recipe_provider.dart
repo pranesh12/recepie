@@ -1,4 +1,4 @@
-import 'package:recepie_app/Model/recipe.dart';
+import 'package:recipe_app/Model/recipe.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

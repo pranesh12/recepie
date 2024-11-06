@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recepie_app/screen/category.dart';
-import 'package:recepie_app/screen/favourite.dart';
-import 'package:recepie_app/screen/home.dart';
+import 'package:recipe_app/screen/category.dart';
+import 'package:recipe_app/screen/favourite.dart';
+import 'package:recipe_app/screen/home.dart';
 
 class CustomNavbar extends StatefulWidget {
   const CustomNavbar({super.key});

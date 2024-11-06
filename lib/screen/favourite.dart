@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:recepie_app/provider/favourites_provider.dart';
-import 'package:recepie_app/widgets/recepie_details.dart';
+import 'package:recipe_app/provider/favourites_provider.dart';
+import 'package:recipe_app/widgets/recipe_details.dart';
 
 class Favourite extends ConsumerStatefulWidget {
   const Favourite({super.key});
@@ -23,7 +23,7 @@ class FavouriteState extends ConsumerState<Favourite> {
       body: recipes.isEmpty
           ? const Center(
               child: Text(
-                "No Favourite Recepie",
+                "No Favourite Recipe",
                 style: TextStyle(fontSize: 18),
               ),
             )
@@ -58,7 +58,7 @@ class FavouriteState extends ConsumerState<Favourite> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => RecipeDetailScreen(
-                            id: index + 1,
+                            id: recipe.id,
                           ),
                         ),
                       );

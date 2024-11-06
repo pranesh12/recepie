@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:recepie_app/constant/api_endpoint.dart';
-import 'package:recepie_app/provider/tag_provider.dart';
-import 'package:recepie_app/screen/tag_recipe.dart';
-import 'package:recepie_app/widgets/category_card.dart';
+import 'package:recipe_app/constant/api_endpoint.dart';
+import 'package:recipe_app/provider/tag_provider.dart';
+import 'package:recipe_app/screen/tag_recipe.dart';
+import 'package:recipe_app/widgets/category_card.dart';
 import 'package:http/http.dart' as http;
 
 class Category extends ConsumerStatefulWidget {

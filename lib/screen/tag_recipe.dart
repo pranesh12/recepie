@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:recepie_app/constant/api_endpoint.dart';
-import 'package:recepie_app/Model/recipe.dart';
-import 'package:recepie_app/widgets/recepie_details.dart';
-import 'package:recepie_app/widgets/recipe_card.dart';
+import 'package:recipe_app/constant/api_endpoint.dart';
+import 'package:recipe_app/Model/recipe.dart';
+import 'package:recipe_app/widgets/recipe_details.dart';
+import 'package:recipe_app/widgets/recipe_card.dart';
 
 class TagRecipe extends StatefulWidget {
   final String tagName;

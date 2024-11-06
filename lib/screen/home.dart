@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:recepie_app/Model/recipe.dart';
-import 'package:recepie_app/constant/api_endpoint.dart';
-import 'package:recepie_app/constant/country.dart';
-import 'package:recepie_app/provider/recipe_provider.dart';
-import 'package:recepie_app/widgets/recepie_details.dart';
-import 'package:recepie_app/widgets/recipe_card.dart';
+import 'package:recipe_app/Model/recipe.dart';
+import 'package:recipe_app/constant/api_endpoint.dart';
+import 'package:recipe_app/constant/country.dart';
+import 'package:recipe_app/provider/recipe_provider.dart';
+import 'package:recipe_app/widgets/recipe_details.dart';
+import 'package:recipe_app/widgets/recipe_card.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends ConsumerStatefulWidget {
@@ -64,6 +64,7 @@ class HomeState extends ConsumerState<Home> {
           "Welcome to Foodie",
           style: TextStyle(color: Colors.white),
         ),
+        toolbarHeight: 60,
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
