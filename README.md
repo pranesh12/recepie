@@ -5,8 +5,15 @@ A new Flutter project.
 
 Here are some illustrations of the app screens:
 
-| ![Home Screen](https://github.com/user-attachments/assets/af04cea1-7573-4352-ab80-2b65e046c7da) | ![Details Screen](https://github.com/user-attachments/assets/eaccbee7-a151-4d3e-9a27-c111447af337) | ![Favourites](https://github.com/user-attachments/assets/ff993bbd-9ecc-4b0d-93ee-76a050fa6017) |
-| :-------------------------------------------: | :--------------------------------------------------------: | :-----------------------------------------------: |
-
-| ![Screen 4](https://github.com/user-attachments/assets/776a6b9b-ef61-480c-a197-a981a668e89d) | ![Screen 5](https://github.com/user-attachments/assets/0ce3916f-5077-413b-8b57-52fb2dae747e) | |
-| :-------------------------------------------: | :--------------------------------------------------------: | :-----------------------------------------------: |
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/af04cea1-7573-4352-ab80-2b65e046c7da" width="200" alt="Home Screen"></td>
+    <td><img src="https://github.com/user-attachments/assets/eaccbee7-a151-4d3e-9a27-c111447af337" width="200" alt="Details Screen"></td>
+    <td><img src="https://github.com/user-attachments/assets/ff993bbd-9ecc-4b0d-93ee-76a050fa6017" width="200" alt="Favourites"></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/776a6b9b-ef61-480c-a197-a981a668e89d" width="200" alt="Screen 4"></td>
+    <td><img src="https://github.com/user-attachments/assets/0ce3916f-5077-413b-8b57-52fb2dae747e" width="200" alt="Screen 5"></td>
+    <td></td>
+  </tr>
+</table>
