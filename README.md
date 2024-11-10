@@ -22,7 +22,7 @@ A beautiful and functional Recipe App built with Flutter! This app allows users 
 - **Recipe Fetching**: Access a variety of recipes fetched from the DummyJSON API.
 - **Search Recipes**: Quickly find recipes based on keywords.
 - **Add to Favorites**: Save favorite recipes locally with Shared Preferences for easy access.
-- **Smooth Navigation**: Efficient navigation with a clean UI using `go_router`.
+- **Smooth Navigation**: Efficient navigation .
 - **Eye-Catching UI**: Carefully designed to be visually appealing and easy to use.
 
 ## 🛠 Tech Stack
@@ -31,6 +31,4 @@ A beautiful and functional Recipe App built with Flutter! This app allows users 
 - **Riverpod**: Used for state management.
 - **Shared Preferences**: Stores favorite recipes locally on the device.
 
-## 📚 Project Structure
 
-The project is organized as follows:
