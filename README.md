@@ -1,4 +1,4 @@
-# 🍲 Recipe App
+# 🍲 Foodie App
 
 A beautiful and functional Recipe App built with Flutter! This app allows users to browse, search, and save favorite recipes with a smooth and visually appealing interface.
 
